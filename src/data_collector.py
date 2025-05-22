@@ -29,10 +29,10 @@ class ShelterDataCollector:
             filters: Dictionary of API filters (type, location, etc.)
             max_animals: Maximum number of animals to collect (None for all)
         """
-        print(f"🚀 Starting data collection with filters: {filters}")
+        print(f" Starting data collection with filters: {filters}")
 
         if not self.api.authenticate():
-            print("❌ Failed to authenticate with Petfinder API")
+            print("Failed to authenticate with Petfinder API")
             return
 
         collected_count = 0
@@ -43,7 +43,7 @@ class ShelterDataCollector:
             # Add pagination to filters
             current_filters = {**filters, 'page': page, 'limit': 100}
 
-            print(f"📥 Fetching page {page}...")
+            print(f"Fetching page {page}...")
             batch = self.api.get_animals(**current_filters)
 
             if not batch:
@@ -58,15 +58,15 @@ class ShelterDataCollector:
                         collected_count += 1
 
                         if collected_count % 100 == 0:
-                            print(f"✅ Saved {collected_count} animals so far...")
+                            print(f"Saved {collected_count} animals so far...")
 
                         # Check if we've hit our limit
                         if max_animals and collected_count >= max_animals:
-                            print(f"🎯 Reached target of {max_animals} animals")
+                            print(f"Reached target of {max_animals} animals")
                             return collected_count
 
                 except Exception as e:
-                    print(f"❌ Error processing animal {animal_data.get('id')}: {e}")
+                    print(f"Error processing animal {animal_data.get('id')}: {e}")
                     continue
 
             animals.extend(batch)
@@ -75,12 +75,12 @@ class ShelterDataCollector:
             # Be nice to the API
             time.sleep(0.5)
 
-        print(f"🎉 Collection complete! Saved {collected_count} animals")
+        print(f"Collection complete! Saved {collected_count} animals")
         return collected_count
 
     def collect_sample_data(self, location: str = "90210", sample_size: int = 1000):
         """Collect a sample dataset for initial analysis"""
-        print(f"📊 Collecting sample of {sample_size} animals from {location}")
+        print(f"Collecting sample of {sample_size} animals from {location}")
 
         # Collect dogs and cats from the specified location
         filters = {
@@ -90,17 +90,17 @@ class ShelterDataCollector:
         }
 
         # Get dogs
-        print("🐕 Collecting dogs...")
+        print("Collecting dogs...")
         dog_filters = {**filters, 'type': 'dog'}
         dogs_collected = self.collect_animals(dog_filters, sample_size // 2)
 
         # Get cats
-        print("🐱 Collecting cats...")
+        print("Collecting cats...")
         cat_filters = {**filters, 'type': 'cat'}
         cats_collected = self.collect_animals(cat_filters, sample_size // 2)
 
         total = dogs_collected + cats_collected
-        print(f"🎯 Sample collection complete: {total} animals total")
+        print(f"Sample collection complete: {total} animals total")
         return total
 
     def collect_by_region(self, regions: list, animals_per_region: int = 500):
@@ -108,7 +108,7 @@ class ShelterDataCollector:
         total_collected = 0
 
         for region in regions:
-            print(f"\n🌎 Collecting data from {region}")
+            print(f"\nCollecting data from {region}")
 
             filters = {
                 'location': region,
@@ -122,7 +122,7 @@ class ShelterDataCollector:
             # Small break between regions
             time.sleep(2)
 
-        print(f"\n🎉 Regional collection complete: {total_collected} animals from {len(regions)} regions")
+        print(f"\nRegional collection complete: {total_collected} animals from {len(regions)} regions")
         return total_collected
 
 

@@ -108,7 +108,7 @@ class DatabaseManager:
     def create_tables(self):
         """Create all tables"""
         Base.metadata.create_all(self.engine)
-        print("✅ Database tables created")
+        print("Database tables created")
 
     def get_session(self):
         """Get database session"""
@@ -138,7 +138,7 @@ class DatabaseManager:
 
         except Exception as e:
             session.rollback()
-            print(f"❌ Error saving animal {animal_data.get('id')}: {e}")
+            print(f"Error saving animal {animal_data.get('id')}: {e}")
             return None
         finally:
             session.close()
