@@ -1,0 +1,33 @@
+# Environment variables
+.env
+
+# Database files
+data/*.db
+data/*.sqlite
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+shelter_env/
+venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Output files
+outputs/
+*.csv
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
